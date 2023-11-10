@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posture Check Demo</title>
+    <title>Posture Check Demo for Huawei</title>
     <link rel="stylesheet" href="styles.css">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet"> <!-- Added Bootstrap CSS -->
 
@@ -36,15 +36,25 @@
             background-color: transparent; /* Set a transparent background */
         }
 
-        #rotation {
+        #rotation-container {
             margin-bottom: 20px;
-            width: 300px; /* Increased width */
-            font-size: 18px; /* Increased font size */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative; /* Add position relative */
         }
 
+        #rotation {
+            width: 300px; /* Increased width */
+            font-size: 30px; /* Increased font size */
+        }
+        
         #rotation-label {
-            font-size: 18px; /* Label font size */
+            font-size: 18px;
             margin-bottom: 10px;
+            position: absolute; /* Add position absolute */
+            left: 50%; /* Add left 50% to center horizontally */
+            transform: translateX(-50%); /* Adjust for centering */
         }
 
         #exercise {
@@ -79,11 +89,13 @@
         <h1>Posture check demo</h1>
         <video id="webgazer-video" playsinline autoplay></video>
 
-        <!-- Label for the rotation value -->
-        <div id="rotation-label">Angle of viewing / °</div>
-
-        <!-- Text box that shows the rotation value -->
-        <input type="text" id="rotation" value="0" />
+        <!-- Container for the rotation value and label -->
+        <div id="rotation-container">
+            <!-- Label for the rotation value -->
+            <div id="rotation-label">Angle of viewing / °</div>
+            <!-- Text box that shows the rotation value -->
+            <input type="text" id="rotation" value="0" />
+        </div>
 
         <!-- Element to show exercise -->
         <div id="exercise">
