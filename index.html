@@ -26,14 +26,6 @@
             margin-bottom: 30px;
         }
 
-        #rotation-container {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
         .angle-container {
             margin-bottom: 20px;
             display: flex;
@@ -89,19 +81,19 @@
         </div>
 
         <!-- Container for the rotation value and label -->
-        <div id="rotation-container">
+        <div class="angle-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of phone / ° SAMPLE2</div>
+            <div class="angle-label">Angle of phone / ° SAMPLE</div>
             <!-- Text box that shows the rotation value -->
-            <input type="text" id="rotation" value="0" />
+            <input type="text" id="rotation" class="angle-value" value="0" />
         </div>
 
         <!-- Container for the face angle value and label -->
         <div class="angle-container">
             <!-- Label for the face angle value -->
-            <div class="angle-label">Angle of face / ° SAMPLE2</div>
+            <div class="angle-label">Angle of face / ° SAMPLE</div>
             <!-- Text box that shows the face angle value -->
-            <input type="text" id="face-angle" value="0" />
+            <input type="text" id="face-angle" class="angle-value" value="0" />
         </div>
 
         <!-- Element to show exercise -->
@@ -123,9 +115,13 @@
 
                     const faceModel = data.face; // Access face model data
                     if (faceModel) {
-                        const angle = faceModel.angle; // Get the angle of the face
-                        document.getElementById("face-angle").value = angle.toFixed(2);
+                        const faceAngle = faceModel.angle; // Get the angle of the face
+                        document.getElementById("face-angle").value = faceAngle.toFixed(2);
                     }
+
+                    const phoneRotation = new Rotation();
+                    const phoneAngle = phoneRotation.getRotation(); // Get the angle of the phone
+                    document.getElementById("rotation").value = phoneAngle.toFixed(2);
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
@@ -133,10 +129,9 @@
 
         <!-- Rotation calculation and exercise display script -->
         <script>
-            const rotation = new Rotation();
-
             setInterval(() => {
-                if (rotation.getRotation() > 10) {
+                const phoneRotation = new Rotation();
+                if (phoneRotation.getRotation() > 10) {
                     document.getElementById("exercise").style.display = "block";
                 } else {
                     document.getElementById("exercise").style.display = "none";
