@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posture Check Demo for Huawei</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"> <!-- Added Bootstrap CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
+            update1
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -26,14 +27,13 @@
             margin-bottom: 30px;
         }
 
-        /* Use the webgazer video feed directly */
         #webgazer-video {
             width: 100%;
             height: auto;
             max-width: 500px;
             border: 2px solid #333;
             border-radius: 5px;
-            background-color: transparent; /* Set a transparent background */
+            background-color: transparent;
         }
 
         #rotation-container {
@@ -41,44 +41,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative; /* Add position relative */
+            position: relative;
         }
 
         #rotation {
-            width: 300px; /* Increased width */
-            font-size: 30px; /* Increased font size */
+            width: 300px;
+            font-size: 30px;
         }
-        
+
         #rotation-label {
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 10px;
-            position: absolute; /* Add position absolute */
-            left: 50%; /* Add left 50% to center horizontally */
-            transform: translateX(-50%); /* Adjust for centering */
-        }
-
-        #exercise {
-            display: none; /* Initially hide the exercise element */
-        }
-
-        /* Styles from the sensor access demo */
-        #demo-div {
-            color: lightgrey;
-            border-radius: 0.3rem;
-            margin-top: 20px;
-        }
-
-        #demo-div span,
-        #demo-div #num-observed-events {
             color: black;
         }
 
-        #demo-div li {
-            line-height: 21px;
-        }
-
-        #demo-div ul {
-            margin-bottom: 0.66rem;
+        #exercise {
+            display: none;
         }
     </style>
 </head>
@@ -98,15 +76,15 @@
         </div>
 
         <!-- Element to show exercise -->
-        <div id="exercise">
-            <!-- Your exercise content goes here -->
-        </div>
+        <div id="exercise"></div>
 
+        <!-- JavaScript includes -->
         <script src="rotation.js" type="text/javascript"></script>
         <script src="webgazer.js" type="text/javascript"></script>
 
+        <!-- Webgazer initialization script -->
         <script>
-            webgazer.setRegression('ridge') /* currently must set regression and tracker */
+            webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
                 .setGazeListener(function(data, clock) {
                     if (data == null) {
@@ -115,28 +93,17 @@
                     console.log(data);
                 })
                 .begin();
-            webgazer.showPredictionPoints(true); /* shows a square every 100 milliseconds where the current prediction is */
-            
-            // Request camera access for Webgazer
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    const webgazerVideo = document.getElementById('webgazer-video');
-                    webgazerVideo.srcObject = stream;
-                })
-                .catch(function (err) {
-                    console.log('An error occurred: ' + err);
-                });
+            webgazer.showPredictionPoints(true);
         </script>
 
+        <!-- Rotation calculation and exercise display script -->
         <script>
             const rotation = new Rotation();
 
-            // Access rotation value and update the input field
             setInterval(() => {
                 const rotationValue = document.getElementById("rotation");
                 rotationValue.value = rotation.getRotation();
 
-                // Check if rotation is greater than 10 and show exercise
                 if (rotation.getRotation() > 10) {
                     document.getElementById("exercise").style.display = "block";
                 } else {
