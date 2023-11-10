@@ -10,7 +10,7 @@ class Rotation {
           const leftToRight = event.gamma; // gamma: left to right
           const frontToBack = event.beta; // beta: front back motion
 
-          this.rotationValue = frontToBack; // Use frontToBack as rotation value
+          this.rotationValue = frontToBack; // Use frontToBack as the rotation value
 
           handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
         },
@@ -27,6 +27,9 @@ class Rotation {
 const handleOrientationEvent = (frontToBack, leftToRight, rotateDegrees) => {
   // do something amazing
   // You can add your custom logic here
+  console.log("Front to back motion:", frontToBack);
+  console.log("Left to right motion:", leftToRight);
+  console.log("Rotation around z-axis:", rotateDegrees);
 };
 
 // Export the Rotation class
