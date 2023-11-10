@@ -34,15 +34,23 @@
             position: relative;
         }
 
-        #rotation {
-            width: 300px;
-            font-size: 30px;
+        .angle-container {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
         }
 
-        #rotation-label {
+        .angle-label {
             font-size: 24px;
             margin-bottom: 10px;
             color: black;
+        }
+
+        .angle-value {
+            width: 300px;
+            font-size: 30px;
         }
 
         #exercise {
@@ -83,9 +91,17 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of face / ° SAMPLE</div>
+            <div id="rotation-label">Angle of phone / ° SAMPLE2</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
+        </div>
+
+        <!-- Container for the face angle value and label -->
+        <div class="angle-container">
+            <!-- Label for the face angle value -->
+            <div class="angle-label">Angle of face / ° SAMPLE2</div>
+            <!-- Text box that shows the face angle value -->
+            <input type="text" id="face-angle" value="0" />
         </div>
 
         <!-- Element to show exercise -->
@@ -108,7 +124,7 @@
                     const faceModel = data.face; // Access face model data
                     if (faceModel) {
                         const angle = faceModel.angle; // Get the angle of the face
-                        document.getElementById("rotation").value = angle.toFixed(2);
+                        document.getElementById("face-angle").value = angle.toFixed(2);
                     }
                 })
                 .begin();
