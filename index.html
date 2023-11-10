@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posture Check Demo</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"> <!-- Added Bootstrap CSS -->
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,55 +39,109 @@
         #exercise {
             display: none; /* Initially hide the exercise element */
         }
+
+        /* Styles from the sensor access demo */
+        #demo-div {
+            color: lightgrey;
+            border-radius: 0.3rem;
+            margin-top: 20px;
+        }
+
+        #demo-div span,
+        #demo-div #num-observed-events {
+            color: black;
+        }
+
+        #demo-div li {
+            line-height: 21px;
+        }
+
+        #demo-div ul {
+            margin-bottom: 0.66rem;
+        }
     </style>
 </head>
 <body>
-    <h1>Posture check demo</h1>
-    <video id="camera-feed" playsinline autoplay></video>
+    <main role="main" class="container">
+        <!-- Sensor Access Demo Content -->
+        <div class="p-3 mb-2 bg-secondary" id="demo-div">
+            <a id="start_demo" class="btn btn-lg btn-success py-1" href="#" role="button">Start the demo</a>
+            <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning"
+                                                                    id="num-observed-events">0</span></p>
 
-    <!-- Text box that shows the rotation value -->
-    <input type="text" id="rotation" value="0" />
+            <h4 style="margin-top:0.75rem;">Orientation</h4>
+            <ul>
+                <li>X-axis (&beta;): <span id="Orientation_b">0</span><span>&deg;</span></li>
+                <li>Y-axis (&gamma;): <span id="Orientation_g">0</span><span>&deg;</span></li>
+                <li>Z-axis (&alpha;): <span id="Orientation_a">0</span><span>&deg;</span></li>
+            </ul>
 
-    <!-- Element to show exercise -->
-    <div id="exercise">
-        <!-- Your exercise content goes here -->
-    </div>
+            <!-- Additional sensor data can be added as needed -->
+        </div>
 
-    <script src="rotation.js" type="text/javascript"></script>
+        <!-- Posture Check Demo Content -->
+        <h1>Posture check demo</h1>
+        <video id="camera-feed" playsinline autoplay></video>
 
+        <!-- Text box that shows the rotation value -->
+        <input type="text" id="rotation" value="0" />
+
+        <!-- Element to show exercise -->
+        <div id="exercise">
+            <!-- Your exercise content goes here -->
+        </div>
+
+        <script src="rotation.js" type="text/javascript"></script>
+        <script>
+            const video = document.getElementById('camera-feed');
+
+            // Request camera access
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err) {
+                    console.log('An error occurred: ' + err);
+                });
+        </script>
+
+        <script>
+            const rotation = new Rotation();
+
+            // Access rotation value and update the input field
+            setInterval(() => {
+                const rotationValue = document.getElementById("rotation");
+                rotationValue.value = rotation.getRotation();
+
+                // Check if rotation is greater than 10 and show exercise
+                if (rotation.getRotation() > 10) {
+                    document.getElementById("exercise").style.display = "block";
+                } else {
+                    document.getElementById("exercise").style.display = "none";
+                }
+            }, 1000); // Update every 1 second, adjust as needed
+        </script>
+
+        <script src="webgazer.js" type="text/javascript"></script>
+
+        <!-- <iframe src="exercises.html" width="100%" height="400px" style="border: none;"></iframe> -->
+
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted small">This page is hosted on GitHub Pages, please see GitHub's privacy statement
+                <a href="https://help.github.com/articles/github-privacy-statement/">here</a>.</span>
+        </div>
+    </footer>
+
+    <!-- Sensor Access Demo Script -->
     <script>
-        const video = document.getElementById('camera-feed');
+        // The sensor access demo script goes here
+        // ...
 
-        // Request camera access
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                video.srcObject = stream;
-            })
-            .catch(function (err) {
-                console.log('An error occurred: ' + err);
-            });
+        // You might need to adjust the integration based on specific requirements.
+        // Ensure there are no conflicting variable names or scripts.
     </script>
-
-    <script>
-        const rotation = new Rotation();
-
-        // Access rotation value and update the input field
-        setInterval(() => {
-            const rotationValue = document.getElementById("rotation");
-            rotationValue.value = rotation.getRotation();
-
-            // Check if rotation is greater than 10 and show exercise
-            if (rotation.getRotation() > 10) {
-                document.getElementById("exercise").style.display = "block";
-            } else {
-                document.getElementById("exercise").style.display = "none";
-            }
-        }, 1000); // Update every 1 second, adjust as needed
-    </script>
-
-    <script src="webgazer.js" type="text/javascript"></script>
-
-    <!-- <iframe src="exercises.html" width="100%" height="400px" style="border: none;"></iframe> -->
 
 </body>
 </html>
