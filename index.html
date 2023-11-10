@@ -9,7 +9,6 @@
 
     <style>
         body {
-            update1
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -25,15 +24,6 @@
             color: #ccbeaf;
             text-align: center;
             margin-bottom: 30px;
-        }
-
-        #webgazer-video {
-            width: 100%;
-            height: auto;
-            max-width: 500px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background-color: transparent;
         }
 
         #rotation-container {
@@ -58,6 +48,21 @@
         #exercise {
             display: none;
         }
+
+        #webgazer-video-container {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #webgazer-video {
+            width: 100%;
+            height: auto;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -65,7 +70,11 @@
 
         <!-- Posture Check Demo Content -->
         <h1>Posture check demo</h1>
-        <video id="webgazer-video" playsinline autoplay></video>
+
+        <!-- Container for the webgazer camera view -->
+        <div id="webgazer-video-container">
+            <video id="webgazer-video" playsinline autoplay></video>
+        </div>
 
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
