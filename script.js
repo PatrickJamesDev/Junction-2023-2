@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     webgazer.setRegression('ridge')
         .setTracker('clmtrackr')
         .setGazeListener(function(data, clock) {
-            if (data === null) {
+            if (data == null) {
                 return;
             }
 
@@ -52,19 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Counter reached 0, take appropriate action
             console.log("Counter reached 0. Implement your action here.");
-
-            // Check if the browser supports notifications
-            if ("Notification" in window) {
-                if (Notification.permission === "granted" && counter === 0) {
-                    new Notification("Hey, fix your posture");
-                } else if (Notification.permission !== 'denied' || Notification.permission === "default") {
-                    Notification.requestPermission(function (permission) {
-                        if (permission === "granted" && counter === 0) {
-                            new Notification("Hey, fix your posture");
-                        }
-                    });
-                }
-            }
         }
     }
 
