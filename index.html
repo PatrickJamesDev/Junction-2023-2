@@ -8,156 +8,152 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    color: #333; /* Text color */
-    background: linear-gradient(to right, #D9EAFD, #FAD9E5); /* Gradient background */
-}
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #333; /* Text color */
+            background: linear-gradient(to right, #D9EAFD, #FAD9E5); /* Gradient background */
+        }
 
-h1 {
-    color: #333; /* Heading color */
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 36px;
-    font-weight: bold;
-}
+        h1 {
+            color: #333; /* Heading color */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            font-weight: bold;
+        }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-.card-container {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .card-container {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.card {
-    width: 300px;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(to bottom, #FAD9E5, #D9EAFD); /* Gradient background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .card {
+            width: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #FAD9E5, #D9EAFD); /* Gradient background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-.card label {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
-}
+        .card label {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
 
-.card input {
-    width: 100%;
-    padding: 15px;
-    font-size: 20px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 12px; /* Rounded corners */
-    outline: none; /* Remove default outline */
-}
+        .card input {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 12px; /* Rounded corners */
+            outline: none; /* Remove default outline */
+        }
 
-#exercise {
-    display: none;
-    color: #333;
-    font-size: 24px;
-    font-style: italic;
-}
+        #exercise,
+        #statistics {
+            display: none;
+            color: #333;
+            font-size: 24px;
+            font-style: italic;
+        }
 
-#statistics {
-    display: none;
-    color: #333;
-    font-size: 24px;
-    font-style: italic;
-}
+        #webgazer-video-container {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column; /* Adjusted to column layout */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            overflow: hidden;
+            margin-top: 20px; /* Adjusted margin-top */
+        }
 
-#webgazer-video-container {
-    width: 100%;
-    max-width: 500px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
+        #webgazer-video {
+            width: 100%;
+            height: auto;
+        }
 
-#webgazer-video {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-}
+        #webgazerFaceFeedbackBox {
+            display: none;
+        }
 
-#webgazerFaceFeedbackBox {
-    display: none;
-}
+        /* Add these styles for the second tab */
+        .sidebar-tabs-menu-1 .tab .title.not-first {
+            left: 0; /* Adjust the position of the second tab */
+        }
 
-/* Add these styles for the second tab */
-.sidebar-tabs-menu-1 .tab .title.not-first {
-  left: 0; /* Adjust the position of the second tab */
-}
+        .sidebar-tabs-menu-1 .tab .title:hover {
+            background-color: #3399FF; /* Change the hover color for the second tab */
+            color: #fff; /* Change the text color on hover for the second tab */
+        }
 
-.sidebar-tabs-menu-1 .tab .title:hover {
-  background-color: #3399FF; /* Change the hover color for the second tab */
-  color: #fff; /* Change the text color on hover for the second tab */
-}
+        .sidebar-tabs-menu-1 input[type="radio"]:checked ~ .title.not-first {
+            background-color: #3399FF; /* Change the active color for the second tab */
+            color: #fff; /* Change the text color when the second tab is active */
+        }
 
-.sidebar-tabs-menu-1 input[type="radio"]:checked ~ .title.not-first {
-  background-color: #3399FF; /* Change the active color for the second tab */
-  color: #fff; /* Change the text color when the second tab is active */
-}
+        /* Customize the content in the second tab */
+        .sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-recent) {
+            /* Add styles to differentiate the second tab content */
+        }
 
-/* Customize the content in the second tab */
-.sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-recent) {
-  /* Add styles to differentiate the second tab content */
-}
+        .sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-popular) {
+            /* Add styles to differentiate the second tab content */
+        }
 
-.sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-popular) {
-  /* Add styles to differentiate the second tab content */
-}
+        /* Styles for the text boxes */
+        .black-outlined-box {
+            border: 2px solid #000;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
 
-/* Styles for the second tab (Statistics) */
-.sidebar-tabs-menu-1 .tab .title.not-second {
-  right: 0; /* Adjust the position of the third tab */
-}
-
-.sidebar-tabs-menu-1 .tab .title.not-second:hover {
-  background-color: #FF6633; /* Change the hover color for the third tab */
-  color: #fff; /* Change the text color on hover for the third tab */
-}
-
-.sidebar-tabs-menu-1 input[type="radio"]:checked ~ .title.not-second {
-  background-color: #FF6633; /* Change the active color for the third tab */
-  color: #fff; /* Change the text color when the third tab is active */
-}
-
-/* Customize the content in the third tab (Statistics) */
-.sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-statistics) {
-  /* Add styles to differentiate the third tab content */
-}
+        .stylish-textbox {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 12px; /* Rounded corners */
+            outline: none; /* Remove default outline */
+            font-family: 'Your-Apple-Font', sans-serif; /* Replace 'Your-Apple-Font' with the actual Apple font */
+            margin-bottom: 10px; /* Adjusted margin-bottom */
+        }
     </style>
-    
+
 </head>
 <body>
     <main role="main" class="container">
 
-        <!-- Posture Check Demo Content -->
-        <h1>Posture check demo</h1>
-
         <!-- Container for the webgazer camera view -->
         <div id="webgazer-video-container">
+            <h1>Posture check demo</h1>
+            <div class="stylish-textbox">Usage: look at the phone with good posture for a few seconds</div>
+            <div class="stylish-textbox">Additional text goes here</div>
             <video id="webgazer-video" playsinline autoplay></video>
         </div>
 
@@ -192,7 +188,7 @@ h1 {
         <div id="statistics">
             <h2>Statistics</h2>
             <p>Long term statistics here.
-                <br> 
+                <br>
                 "Your posture has improved in the past week, Good Job!"
             </p>
         </div>
@@ -206,7 +202,7 @@ h1 {
             // Initialize the Rotation class
             const rotation = new Rotation();
             var countdown = 30; // Initial countdown value
-        
+
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
                 .setGazeListener(function (data, clock) {
@@ -215,21 +211,21 @@ h1 {
                     }
                     const faceInFrameValue = document.getElementById("face-in-frame");
                     const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
-        
+
                     // Get the computed style to check the border color
                     const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
-        
+
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
-        
+
             // Update rotation and face-in-frame every 10 milliseconds
             setInterval(() => {
                 const rotationValue = document.getElementById("rotation");
                 rotationValue.value = rotation.getRotation();
-        
+
                 if (rotation.getRotation() > 10) {
                     document.getElementById("exercise").style.display = "block";
                     document.getElementById("statistics").style.display = "none";
@@ -240,25 +236,22 @@ h1 {
             }, 10); // Update every 0.01 second, adjust as needed
         </script>
         <script>
-            
-
             function startCountdown() {
-    // Get the current rotation value directly from the rotation object
-    const rotationValue = rotation.getRotation();
-    
-    // Convert face-in-frame value to an integer
-    const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
+                // Get the current rotation value directly from the rotation object
+                const rotationValue = rotation.getRotation();
 
-    if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
-        countdown -= 1;
-        document.getElementById("counter").value = countdown;
-    } else if (countdown === 0) {
-        // Notify the user when the countdown reaches 0
-        alert("Hey! You've been sitting slouched!");
-        resetCountdown();
-    }
+                // Convert face-in-frame value to an integer
+                const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
+
+                if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
+                    countdown -= 1;
+                    document.getElementById("counter").value = countdown;
+                } else if (countdown === 0) {
+                    // Notify the user when the countdown reaches 0
+                    alert("Hey! You've been sitting slouched!");
+                    resetCountdown();
+                }
             }
-
 
             function resetCountdown() {
                 countdown = 30;
