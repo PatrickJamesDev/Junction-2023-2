@@ -143,6 +143,14 @@
                     
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
+        
+                    // Check conditions for starting/resetting the countdown
+                    const isAngleInRange = rotation.getRotation() >= 25 && rotation.getRotation() <= 40;
+                    if (faceInFrameValue.value === "1" && isAngleInRange) {
+                        startCountdown();
+                    } else {
+                        resetCountdown();
+                    }
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
@@ -174,17 +182,7 @@
                 } else {
                     document.getElementById("exercise").style.display = "none";
                 }
-        
-                // Check conditions for starting/resetting the countdown
-                const faceInFrameValue = document.getElementById("face-in-frame").value;
-                const isAngleInRange = rotation.getRotation() >= 25 && rotation.getRotation() <= 40;
-        
-                if (faceInFrameValue === "1" && isAngleInRange) {
-                    startCountdown();
-                } else {
-                    resetCountdown();
-                }
-            }, 10); // Update every 10 ms, constant not to be changed. 
+            }, 10); // Update every second, adjust as needed
         </script>
     </main>
 </body>
