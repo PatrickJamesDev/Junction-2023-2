@@ -158,7 +158,7 @@
                 3. The timer will start counting down from 30 seconds; if you are still hunching down when the timer reaches 0, you will be notified
             </div>
             
-            <video id="webgazer-video" playsinline autoplay onclick="toggleWebgazerVideo()"></video>
+            <video id="webgazer-video" playsinline autoplay></video>
         </div>
 
         <!-- Container for the rotation value and label -->
@@ -238,14 +238,31 @@
                     document.getElementById("statistics").style.display = "block";
                 }
             }, 10); // Update every 0.01 second, adjust as needed
-
-            function toggleWebgazerVideo() {
-                const webgazerVideo = document.getElementById("webgazer-video");
-                webgazerVideo.style.display = (webgazerVideo.style.display === "none" || webgazerVideo.style.display === "") ? "block" : "none";
-            }
         </script>
         <script>
-            // ... (your existing scripts) ...
+            function startCountdown() {
+                // Get the current rotation value directly from the rotation object
+                const rotationValue = rotation.getRotation();
+
+                // Convert face-in-frame value to an integer
+                const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
+
+                if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
+                    countdown -= 1;
+                    document.getElementById("counter").value = countdown;
+                } else if (countdown === 0) {
+                    // Notify the user when the countdown reaches 0
+                    alert("Hey! You've been sitting slouched!");
+                    resetCountdown();
+                }
+            }
+
+            function resetCountdown() {
+                countdown = 20;
+                document.getElementById("counter").value = countdown;
+            }
+
+            setInterval(startCountdown, 1000);
         </script>
     </main>
 </body>
