@@ -45,6 +45,25 @@
             color: black;
         }
 
+        #face-in-frame-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        #face-in-frame-label {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        #face-in-frame {
+            width: 300px;
+            font-size: 30px;
+        }
+
         #exercise {
             display: none;
         }
@@ -86,6 +105,14 @@
             <input type="text" id="rotation" value="0" />
         </div>
 
+        <!-- Container for the face-in-frame value and label -->
+        <div id="face-in-frame-container">
+            <!-- Label for the face-in-frame value -->
+            <div id="face-in-frame-label">Face in frame</div>
+            <!-- Text box that shows the face-in-frame value -->
+            <input type="text" id="face-in-frame" value="0" />
+        </div>
+
         <!-- Element to show exercise -->
         <div id="exercise"></div>
 
@@ -101,7 +128,9 @@
                     if (data == null) {
                         return;
                     }
-                    console.log(data);
+                    const faceInFrameValue = document.getElementById("face-in-frame");
+                    // Update the face-in-frame value based on the presence of a face
+                    faceInFrameValue.value = data.face ? 1 : -1;
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
