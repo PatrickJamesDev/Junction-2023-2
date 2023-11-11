@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (faceModel) {
                 const faceAngle = faceModel.angle; // Get the angle of the face
                 document.getElementById("face-angle").value = faceAngle.toFixed(2);
+
+                // Check if the face tracking model has points
+                if (faceModel.points) {
+                    // Access face tracking points (vertices)
+                    const facePoints = faceModel.points;
+                    console.log("Face Points:", facePoints);
+                }
             }
 
             const phoneAngle = rotation.getRotation(); // Get the angle of the phone
