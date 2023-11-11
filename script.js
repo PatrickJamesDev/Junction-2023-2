@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .begin();
     webgazer.showPredictionPoints(true);
 
+    //if face is frame, faceInFrame = true, else faceInFrame = false
+    const faceInFrame = webgazer.getTracker().getIsTracking();
+
     setInterval(() => {
         const phoneRotation = rotation.getRotation();
         if (phoneRotation > 10) {
