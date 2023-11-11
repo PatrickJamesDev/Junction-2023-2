@@ -82,18 +82,18 @@
             border: 2px solid #ccc;
             border-radius: 15px;
             margin-bottom: 20px;
+            margin-top: 50px; /* Adjusted margin-top */
             position: relative;
             display: flex;
             flex-direction: column; /* Adjusted to column layout */
             align-items: center; /* Center items horizontally */
-            justify-content: center; /* Center items vertically */
+            justify-content: flex-start; /* Align items to the start of the container */
             overflow: hidden;
-            margin-top: 20px; /* Adjusted margin-top */
         }
 
         #webgazer-video {
             width: 100%;
-            height: auto;
+            height: 50px;
         }
 
         #webgazerFaceFeedbackBox {
@@ -152,15 +152,22 @@
         <!-- Container for the webgazer camera view -->
         <div id="webgazer-video-container">
             <h1>Posture check demo</h1>
-            <div class="stylish-textbox">Usage: look at the phone with good posture for a few seconds</div>
-            <div class="stylish-textbox">Additional text goes here</div>
+            <div class="stylish-textbox">Usage: 
+                <br>
+                1.look at the camera with good posture for a few seconds till the camera frame changes to green
+                <br>
+                2. Now hunch down and use the phone with bad posture 
+                <br>
+                3. The timer will start counting down from 30 seconds, if you are still hunching down when the timer reaches 0, you will be notified
+            </div>
+            
             <video id="webgazer-video" playsinline autoplay></video>
         </div>
 
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing10 / °</div>
+            <div id="rotation-label">Angle of viewing / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
