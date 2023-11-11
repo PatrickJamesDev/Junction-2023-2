@@ -26,7 +26,7 @@
             margin-bottom: 30px;
         }
 
-        .angle-container {
+        #rotation-container {
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
@@ -34,15 +34,15 @@
             position: relative;
         }
 
-        .angle-label {
+        #rotation {
+            width: 300px;
+            font-size: 30px;
+        }
+
+        #rotation-label {
             font-size: 24px;
             margin-bottom: 10px;
             color: black;
-        }
-
-        .angle-value {
-            width: 300px;
-            font-size: 30px;
         }
 
         #exercise {
@@ -56,14 +56,12 @@
             border-radius: 5px;
             margin-bottom: 20px;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; /* Add this line */
+            justify-content: center; /* Add this line */
         }
 
         #webgazer-video {
             width: 100%;
-            max-width: 100%;
             height: auto;
             border-radius: 3px;
         }
@@ -81,19 +79,11 @@
         </div>
 
         <!-- Container for the rotation value and label -->
-        <div class="angle-container">
+        <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div class="angle-label">Angle of phone / ° SAMPLE new2</div>
+            <div id="rotation-label">Angle of viewing22 / °</div>
             <!-- Text box that shows the rotation value -->
-            <input type="text" id="rotation" class="angle-value" value="0" />
-        </div>
-
-        <!-- Container for the face angle value and label -->
-        <div class="angle-container">
-            <!-- Label for the face angle value -->
-            <div class="angle-label">Face in frame</div>
-            <!-- Text box that shows the face angle value -->
-            <input type="text" id="face-in-frame" class="angle-value" value="0" />
+            <input type="text" id="rotation" value="0" />
         </div>
 
         <!-- Element to show exercise -->
@@ -102,39 +92,35 @@
         <!-- JavaScript includes -->
         <script src="rotation.js" type="text/javascript"></script>
         <script src="webgazer.js" type="text/javascript"></script>
-        <script src="clmtrackr.js" type="text/javascript"></script> <!-- Include clmtrackr library -->
 
         <!-- Webgazer initialization script -->
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const rotation = new Rotation();
-
-                webgazer.setRegression('ridge')
-                    .setTracker('clmtrackr')
-                    .setGazeListener(function(data, clock) {
-                        if (data == null) {
-                            return;
-                        }
-
-                        const faceModel = data.face; // Access face model data
-                        const isFaceInFrame = faceModel ? 1 : -1; // Face in frame: 1, Not in frame: -1
-                        document.getElementById("face-in-frame").value = isFaceInFrame;
-
-                        const phoneAngle = rotation.getRotation(); // Get the angle of the phone
-                        document.getElementById("rotation").value = phoneAngle.toFixed(2);
-                    })
-                    .begin();
-                webgazer.showPredictionPoints(true);
-
-                setInterval(() => {
-                    const phoneRotation = rotation.getRotation();
-                    if (phoneRotation > 10) {
-                        document.getElementById("exercise").style.display = "block";
-                    } else {
-                        document.getElementById("exercise").style.display = "none";
+            webgazer.setRegression('ridge')
+                .setTracker('clmtrackr')
+                .setGazeListener(function(data, clock) {
+                    if (data == null) {
+                        return;
                     }
-                }, 10); // Update every 0.01 second, adjust as needed
-            });
+                    console.log(data);
+                })
+                .begin();
+            webgazer.showPredictionPoints(true);
+        </script>
+
+        <!-- Rotation calculation and exercise display script -->
+        <script>
+            const rotation = new Rotation();
+
+            setInterval(() => {
+                const rotationValue = document.getElementById("rotation");
+                rotationValue.value = rotation.getRotation();
+
+                if (rotation.getRotation() > 10) {
+                    document.getElementById("exercise").style.display = "block";
+                } else {
+                    document.getElementById("exercise").style.display = "none";
+                }
+            }, 10); // Update every 0.01 second, adjust as needed
         </script>
 
     </main>
