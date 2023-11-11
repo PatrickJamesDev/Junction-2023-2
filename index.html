@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing5 / °</div>
+            <div id="rotation-label">Angle of viewing6 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -164,7 +164,7 @@
             let countdown = 30; // Initial countdown value
 
             function startCountdown() {
-                if (countdown > 0 && rotationValue.value < 45 && faceInFrameValue.value == 1) {
+                if (countdown > 0 && rotation< 45 && faceInFrameValue.value == 1) {
                     countdown -= 1;
                     document.getElementById("counter").value = countdown;
                 } else if (countdown == 0) {
