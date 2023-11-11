@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 10); // Update every 0.01 second, adjust as needed
 
-    // New function to track face angle
+    // Corrected function to track face angle
     function trackFaceAngle(data) {
         const faceModel = data.face; // Access face model data
         if (faceModel) {
