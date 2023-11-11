@@ -1,29 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     const rotation = new Rotation();
 
-    // Load face-api.js models
-    Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-    ]).then(startWebGazer);
+    webgazer.setRegression('ridge')
+        .setTracker('clmtrackr')
+        .setGazeListener(function(data, clock) {
+            if (data == null) {
+                return;
+            }
 
-    function startWebGazer() {
-        webgazer.setRegression('ridge')
-            .setTracker('clmtrackr')
-            .setGazeListener(function(data, clock) {
-                if (data == null) {
-                    return;
-                }
+            trackFaceAngle(data); // Call the function to track face angle
 
-                trackFaceAngle(data); // Call the function to track face angle
-
-                const phoneAngle = rotation.getRotation(); // Get the angle of the phone
-                document.getElementById("rotation").value = phoneAngle.toFixed(2);
-            })
-            .begin();
-        webgazer.showPredictionPoints(true);
-    }
+            const phoneAngle = rotation.getRotation(); // Get the angle of the phone
+            document.getElementById("rotation").value = phoneAngle.toFixed(2);
+        })
+        .begin();
+    webgazer.showPredictionPoints(true);
 
     setInterval(() => {
         const phoneRotation = rotation.getRotation();
@@ -34,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 10); // Update every 0.01 second, adjust as needed
 
-    // Corrected function to track face angle
+    // New function to track face angle
     function trackFaceAngle(data) {
         const faceModel = data.face; // Access face model data
         if (faceModel) {
