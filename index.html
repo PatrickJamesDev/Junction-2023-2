@@ -82,7 +82,7 @@
             border: 2px solid #ccc;
             border-radius: 15px;
             margin-bottom: 20px;
-            margin-top: 50px; /* Adjusted margin-top */
+            margin-top: 200px; /* Adjusted margin-top */
             position: relative;
             display: flex;
             flex-direction: column; /* Adjusted to column layout */
@@ -154,11 +154,11 @@
             <h1>Posture check demo</h1>
             <div class="stylish-textbox">Usage: 
                 <br>
-                1.look at the camera with good posture for a few seconds till the camera frame changes to green
+                1. Look at the camera with good posture for a few seconds till the camera frame changes to green. In dark conditions, facial tracking may fail; try refreshing the page. 
                 <br>
                 2. Now hunch down and use the phone with bad posture 
                 <br>
-                3. The timer will start counting down from 30 seconds, if you are still hunching down when the timer reaches 0, you will be notified
+                3. The timer will start counting down from 30 seconds; if you are still hunching down when the timer reaches 0, you will be notified
             </div>
             
             <video id="webgazer-video" playsinline autoplay></video>
@@ -167,7 +167,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing / °</div>
+            <div id="rotation-label">Angle of phone / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -185,7 +185,7 @@
             <!-- Label for the countdown timer value -->
             <div id="counter-label">Countdown Timer</div>
             <!-- Text box that shows the countdown timer value -->
-            <input type="text" id="counter" value="30" />
+            <input type="text" id="counter" value="20" />
         </div>
 
         <!-- Element to show exercise -->
