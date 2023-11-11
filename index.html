@@ -45,8 +45,7 @@
             font-size: 30px;
         }
 
-        #postureCheck {
-            font-size: 24px;
+        #exercise {
             display: none;
         }
 
@@ -84,7 +83,7 @@
         <!-- Container for the rotation value and label -->
         <div class="angle-container">
             <!-- Label for the rotation value -->
-            <div class="angle-label">Angle of phone / ° SAMPLE new3</div>
+            <div class="angle-label">Angle of phone / ° SAMPLE new</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" class="angle-value" value="0" />
         </div>
@@ -97,87 +96,16 @@
             <input type="text" id="face-angle" class="angle-value" value="0" />
         </div>
 
-        <!-- Element to show postureCheck -->
-        <div id="postureCheck"></div>
+        <!-- Element to show exercise -->
+        <div id="exercise"></div>
 
         <!-- JavaScript includes -->
         <script src="rotation.js" type="text/javascript"></script>
         <script src="webgazer.js" type="text/javascript"></script>
-        <script src="clmtrackr.js" type="text/javascript"></script> <!-- Include clmtrackr library for face tracking -->
+        <script src="clmtrackr.js" type="text/javascript"></script> <!-- Include clmtrackr library -->
 
-        <!-- Webgazer initialization script -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const rotation = new Rotation();
-                let countdown = 30; // Countdown in seconds
-                let countdownInterval;
-
-                // Initialize clmtrackr tracker
-                const tracker = new clm.tracker();
-                tracker.init(pModel);
-                tracker.start(document.getElementById('webgazer-video'));
-
-                webgazer.setRegression('ridge')
-                    .setTracker('clmtrackr')
-                    .setGazeListener(function(data, clock) {
-                        if (data == null) {
-                            return;
-                        }
-
-                        // Update clmtrackr tracker with the current frame
-                        tracker.update(document.getElementById('webgazer-video'));
-
-                        const faceModel = tracker.getCurrentPosition(); // Get the current face model data
-                        if (faceModel) {
-                            const faceAngle = calculateFaceAngle(faceModel); // Calculate the angle of the face
-                            document.getElementById("face-angle").value = faceAngle.toFixed(2);
-                        }
-
-                        const phoneAngle = rotation.getRotation(); // Get the angle of the phone
-                        document.getElementById("rotation").value = phoneAngle.toFixed(2);
-
-                        if (phoneAngle > 10 && !countdownInterval) {
-                            // Start the countdown when phone rotation exceeds 10 degrees
-                            countdownInterval = setInterval(function() {
-                                if (countdown === 0) {
-                                    // Trigger browser notification when countdown reaches 0
-                                    new Notification('Posture Check', {
-                                        body: 'Time to take a break and correct your posture!',
-                                    });
-                                    clearInterval(countdownInterval);
-                                    countdownInterval = null;
-                                } else {
-                                    document.getElementById("postureCheck").innerText = `Exercise time: ${countdown} seconds`;
-                                    countdown--;
-                                }
-                            }, 1000);
-                            document.getElementById("postureCheck").style.display = "block";
-                        } else if (phoneAngle <= 10 && countdownInterval) {
-                            // Reset countdown when phone rotation goes back below 10 degrees
-                            clearInterval(countdownInterval);
-                            countdownInterval = null;
-                            countdown = 30;
-                            document.getElementById("postureCheck").innerText = '';
-                            document.getElementById("postureCheck").style.display = "none";
-                        }
-                    })
-                    .begin();
-                webgazer.showPredictionPoints(true);
-
-                // Function to calculate the angle of the face
-                function calculateFaceAngle(faceModel) {
-                    // Your logic to calculate the angle based on facial landmarks
-                    // Example: Calculate angle between two specific points on the face
-                    const point1 = faceModel[0]; // Example: Assuming faceModel[0] is the left corner of the mouth
-                    const point2 = faceModel[14]; // Example: Assuming faceModel[14] is the right corner of the mouth
-                    const deltaX = point2[0] - point1[0];
-                    const deltaY = point2[1] - point1[1];
-                    const angleRad = Math.atan2(deltaY, deltaX);
-                    const angleDeg = angleRad * (180 / Math.PI);
-                    return angleDeg;
-                }
-            });
-        </script>
+        <!-- Separate JavaScript file -->
+        <script src="script.js" type="text/javascript"></script>
 
     </main>
 </body>
