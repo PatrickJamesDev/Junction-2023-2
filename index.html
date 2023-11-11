@@ -26,7 +26,9 @@
             margin-bottom: 30px;
         }
 
-        #rotation-container {
+        #rotation-container,
+        #face-in-frame-container,
+        #counter-container {
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
@@ -34,34 +36,19 @@
             position: relative;
         }
 
-        #rotation {
+        #rotation,
+        #face-in-frame,
+        #counter {
             width: 300px;
             font-size: 30px;
         }
 
-        #rotation-label {
+        #rotation-label,
+        #face-in-frame-label,
+        #counter-label {
             font-size: 24px;
             margin-bottom: 10px;
             color: black;
-        }
-
-        #face-in-frame-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        #face-in-frame-label {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: black;
-        }
-
-        #face-in-frame {
-            width: 300px;
-            font-size: 30px;
         }
 
         #exercise {
@@ -110,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing3 / °</div>
+            <div id="rotation-label">Angle of viewing4 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -123,6 +110,14 @@
             <input type="text" id="face-in-frame" value="0" />
         </div>
 
+        <!-- Container for the countdown timer value and label -->
+        <div id="counter-container">
+            <!-- Label for the countdown timer value -->
+            <div id="counter-label">Countdown Timer</div>
+            <!-- Text box that shows the countdown timer value -->
+            <input type="text" id="counter" value="30" />
+        </div>
+
         <!-- Element to show exercise -->
         <div id="exercise"></div>
 
@@ -132,6 +127,8 @@
 
         <!-- Webgazer initialization script -->
         <script>
+            let countdown = 30; // Initial countdown value
+
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
                 .setGazeListener(function(data, clock) {
@@ -146,9 +143,33 @@
                     
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
+
+                    // Check conditions for starting/resetting the countdown
+                    const isAngleInRange = rotation.getRotation() >= 25 && rotation.getRotation() <= 40;
+                    if (faceInFrameValue.value === "1" && isAngleInRange) {
+                        startCountdown();
+                    } else {
+                        resetCountdown();
+                    }
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
+
+            function startCountdown() {
+                if (countdown > 0) {
+                    countdown -= 1;
+                    document.getElementById("counter").value = countdown;
+                } else {
+                    // Notify the user when the countdown reaches 0
+                    alert("Hey! You've been sitting slouched!");
+                    resetCountdown();
+                }
+            }
+
+            function resetCountdown() {
+                countdown = 30;
+                document.getElementById("counter").value = countdown;
+            }
         </script>
 
         <!-- Rotation calculation and exercise display script -->
