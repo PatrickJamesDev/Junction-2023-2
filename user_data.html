@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long-Term Data</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #ccbeaf;
+            background-color: #ccbeaf;
+        }
+
+        h1 {
+            color: #ccbeaf;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        canvas {
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <main role="main" class="container">
+
+        <!-- Long-Term Data Content -->
+        <h1>Long-Term Data</h1>
+
+        <!-- Graph to display long-term data -->
+        <canvas id="longTermDataChart"></canvas>
+
+        <!-- Your other long-term data content here -->
+
+    </main>
+
+    <!-- Script to populate and update the chart -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Your logic to fetch and process long-term data
+            // For now, I'll create a sample data set
+            var data = {
+                labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
+                datasets: [{
+                    label: 'Rotation Angle',
+                    data: [30, 25, 35, 28, 32],
+                    borderColor: '#3e95cd',
+                    fill: false
+                }]
+            };
+
+            // Chart.js configuration
+            var config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom'
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'left'
+                        }
+                    }
+                }
+            };
+
+            // Create the chart
+            var ctx = document.getElementById('longTermDataChart').getContext('2d');
+            new Chart(ctx, config);
+        });
+    </script>
+</body>
+</html>

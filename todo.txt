@@ -1,0 +1,18 @@
+todo:
+
+measure the angle of the face
+make angle of face box
+make boundaries for bad face angle + phone angle
+make notification system to alert of poor posture
+- make it so that it only alerts once per bad posture
+- make it so that it only alerts once per good posture
+-Make eye on screen check (are eyes looking at screen? another parameter for the countdown)
+
+-Make it not look so bad
+-Sleep
+-Repeat
+-Make 2nd view to track stats etc, one is for dev
+
+bugs:
+
+color is wrong on camera
