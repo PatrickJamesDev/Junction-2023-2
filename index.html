@@ -83,7 +83,7 @@
         <!-- Container for the rotation value and label -->
         <div class="angle-container">
             <!-- Label for the rotation value -->
-            <div class="angle-label">Angle of phone / ° SAMPLE new</div>
+            <div class="angle-label">Angle of phone / ° SAMPLE new2</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" class="angle-value" value="0" />
         </div>
@@ -93,7 +93,7 @@
             <!-- Label for the face angle value -->
             <div class="angle-label">Face in frame</div>
             <!-- Text box that shows the face angle value -->
-            <input type="text" id="face-angle" class="angle-value" value="0" />
+            <input type="text" id="face-in-frame" class="angle-value" value="0" />
         </div>
 
         <!-- Element to show exercise -->
@@ -117,8 +117,8 @@
                         }
 
                         const faceModel = data.face; // Access face model data
-                        const faceInFrame = faceModel ? 1 : -1; // Face in frame: 1, Not in frame: -1
-                        document.getElementById("face-angle").value = faceInFrame;
+                        const isFaceInFrame = faceModel ? 1 : -1; // Face in frame: 1, Not in frame: -1
+                        document.getElementById("face-in-frame").value = isFaceInFrame;
 
                         const phoneAngle = rotation.getRotation(); // Get the angle of the phone
                         document.getElementById("rotation").value = phoneAngle.toFixed(2);
