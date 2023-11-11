@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing6 / °</div>
+            <div id="rotation-label">Angle of viewing8 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -127,20 +127,16 @@
 
         <!-- Webgazer initialization script -->
         <script>
-            let countdown = 30; // Initial countdown value
         
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
-                .setGazeListener(function(data, clock) {
-                    if (data == null) {
-                        return;
-                    }
+                .setGazeListener(function (data, clock) {
                     const faceInFrameValue = document.getElementById("face-in-frame");
                     const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
-                    
+        
                     // Get the computed style to check the border color
                     const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
-                    
+        
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
         
@@ -155,6 +151,22 @@
                 .begin();
             webgazer.showPredictionPoints(true);
         
+            // Update rotation and face-in-frame every 10 milliseconds
+            setInterval(() => {
+                const rotationValue = document.getElementById("rotation");
+                rotationValue.value = rotation.getRotation();
+        
+                if (rotation.getRotation() > 10) {
+                    document.getElementById("exercise").style.display = "block";
+                } else {
+                    document.getElementById("exercise").style.display = "none";
+                }
+            }, 10);
+        </script>
+        <script>
+
+            let countdown = 30; // Initial countdown value
+
             function startCountdown() {
                 if (countdown > 0) {
                     countdown -= 1;
@@ -165,24 +177,14 @@
                     resetCountdown();
                 }
             }
-        
+
             function resetCountdown() {
                 countdown = 30;
                 document.getElementById("counter").value = countdown;
-            }
+                }        
+            setInterval(startCountdown, 1000);      
+
         
-            const rotation = new Rotation();
-        
-            setInterval(() => {
-                const rotationValue = document.getElementById("rotation");
-                rotationValue.value = rotation.getRotation();
-        
-                if (rotation.getRotation() > 10) {
-                    document.getElementById("exercise").style.display = "block";
-                } else {
-                    document.getElementById("exercise").style.display = "none";
-                }
-            }, 10); // Update every second, adjust as needed
         </script>
     </main>
 </body>
