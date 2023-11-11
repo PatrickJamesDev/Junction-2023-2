@@ -1,20 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
     const rotation = new Rotation();
 
-    webgazer.setRegression('ridge')
-        .setTracker('clmtrackr')
-        .setGazeListener(function(data, clock) {
-            if (data == null) {
-                return;
-            }
+    // Load face-api.js models
+    Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri('models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('models'),
+    ]).then(startWebGazer);
 
-            trackFaceAngle(data); // Call the function to track face angle
+    function startWebGazer() {
+        webgazer.setRegression('ridge')
+            .setTracker('clmtrackr')
+            .setGazeListener(function(data, clock) {
+                if (data == null) {
+                    return;
+                }
 
-            const phoneAngle = rotation.getRotation(); // Get the angle of the phone
-            document.getElementById("rotation").value = phoneAngle.toFixed(2);
-        })
-        .begin();
-    webgazer.showPredictionPoints(true);
+                trackFaceAngle(data); // Call the function to track face angle
+
+                const phoneAngle = rotation.getRotation(); // Get the angle of the phone
+                document.getElementById("rotation").value = phoneAngle.toFixed(2);
+            })
+            .begin();
+        webgazer.showPredictionPoints(true);
+    }
 
     setInterval(() => {
         const phoneRotation = rotation.getRotation();
