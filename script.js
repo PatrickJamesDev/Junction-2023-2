@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to reset the counter to its initial value
+    // Function to reset the counter to its initial value, counter gets reset to 30 if posture is fixed
     function resetCounter() {
         counter = 30;
         document.getElementById("counter").value = counter;
