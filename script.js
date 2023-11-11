@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const rotation = new Rotation();
     let counter = 30; // Initial counter value
+    let countdownStarted = false; // Flag to track whether countdown has started
 
     webgazer.setRegression('ridge')
         .setTracker('clmtrackr')
@@ -25,11 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const phoneAngle = rotation.getRotation(); // Get the angle of the phone
             document.getElementById("rotation").value = phoneAngle.toFixed(2);
 
-            // Check if the phone angle is below 35 degrees
-            if (phoneAngle < 35) {
+            // Check if the phone angle is below 35 degrees and countdown has not started
+            if (phoneAngle < 35 && !countdownStarted) {
                 startCounter();
-            } else {
+                countdownStarted = true; // Set the flag to true
+            } else if (phoneAngle >= 35) {
                 resetCounter();
+                countdownStarted = false; // Reset the flag when posture is fixed
             }
         })
         .begin();
