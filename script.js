@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            trackFaceAngle(data); // Call the function to track face angle
+            const faceModel = data.face; // Access face model data
+            if (faceModel) {
+                const faceAngle = faceModel.angle; // Get the angle of the face
+                document.getElementById("face-angle").value = faceAngle.toFixed(2);
+            }
 
             const phoneAngle = rotation.getRotation(); // Get the angle of the phone
             document.getElementById("rotation").value = phoneAngle.toFixed(2);
@@ -24,13 +28,4 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("exercise").style.display = "none";
         }
     }, 10); // Update every 0.01 second, adjust as needed
-
-    // Corrected function to track face angle
-    function trackFaceAngle(data) {
-        const faceModel = data.face; // Access face model data
-        if (faceModel) {
-            const faceAngle = faceModel.angle; // Get the angle of the face
-            document.getElementById("face-angle").value = faceAngle.toFixed(2);
-        }
-    }
 });
