@@ -100,7 +100,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing1 / °</div>
+            <div id="rotation-label">Angle of viewing2 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -130,12 +130,8 @@
                     }
                     const faceInFrameValue = document.getElementById("face-in-frame");
                     
-                    // Check if the webgazerFaceFeedbackBox canvas is visible
-                    const faceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
-                    const isFaceInFrame = faceFeedbackBox && faceFeedbackBox.style.display === "block";
-                    
-                    // Update the face-in-frame value based on the visibility of the canvas
-                    faceInFrameValue.value = isFaceInFrame ? 1 : -1;
+                    // Update the face-in-frame value based on the presence of a face
+                    faceInFrameValue.value = data.face ? 1 : -1;
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
