@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing3 / °</div>
+            <div id="rotation-label">Angle of viewing4 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -167,7 +167,7 @@
                 if (countdown > 0 && rotation.getRotation() < 45 && faceInFrameValue.value == 1) {
                     countdown -= 1;
                     document.getElementById("counter").value = countdown;
-                } else {
+                } else if (countdown == 0) {
                     // Notify the user when the countdown reaches 0
                     alert("Hey! You've been sitting slouched!");
                     resetCountdown();
