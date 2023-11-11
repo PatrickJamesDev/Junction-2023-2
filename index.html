@@ -165,15 +165,22 @@
             
 
             function startCountdown() {
-                if (countdown > 0 && rotationValue.value< 45 || rotationValue< 45  && faceInFrameValue.value == 1) {
-                    countdown -= 1;
-                    document.getElementById("counter").value = countdown;
-                } else if (countdown == 0) {
-                    // Notify the user when the countdown reaches 0
-                    alert("Hey! You've been sitting slouched!");
-                    resetCountdown();
-                }
+    // Get the current rotation value directly from the rotation object
+    const rotationValue = rotation.getRotation();
+    
+    // Convert face-in-frame value to an integer
+    const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
+
+    if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
+        countdown -= 1;
+        document.getElementById("counter").value = countdown;
+    } else if (countdown === 0) {
+        // Notify the user when the countdown reaches 0
+        alert("Hey! You've been sitting slouched!");
+        resetCountdown();
+    }
             }
+
 
             function resetCountdown() {
                 countdown = 30;
