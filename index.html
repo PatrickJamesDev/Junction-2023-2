@@ -16,12 +16,12 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            color: #333; /* Text color */
-            background: linear-gradient(to right, #D9EAFD, #FAD9E5); /* Gradient background */
+            color: #333;
+            background: linear-gradient(to right, #D9EAFD, #FAD9E5);
         }
 
         h1 {
-            color: #333; /* Heading color */
+            color: #333;
             text-align: center;
             margin-bottom: 30px;
             font-size: 36px;
@@ -48,7 +48,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(to bottom, #FAD9E5, #D9EAFD); /* Gradient background */
+            background: linear-gradient(to bottom, #FAD9E5, #D9EAFD);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -64,8 +64,8 @@
             font-size: 20px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 12px; /* Rounded corners */
-            outline: none; /* Remove default outline */
+            border-radius: 12px;
+            outline: none;
         }
 
         #exercise,
@@ -82,12 +82,12 @@
             border: 2px solid #ccc;
             border-radius: 15px;
             margin-bottom: 20px;
-            margin-top: 200px; /* Adjusted margin-top */
+            margin-top: 200px;
             position: relative;
             display: flex;
-            flex-direction: column; /* Adjusted to column layout */
-            align-items: center; /* Center items horizontally */
-            justify-content: flex-start; /* Align items to the start of the container */
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             overflow: hidden;
         }
 
@@ -102,24 +102,21 @@
 
         /* Add these styles for the second tab */
         .sidebar-tabs-menu-1 .tab .title.not-first {
-            left: 0; /* Adjust the position of the second tab */
+            left: 0;
         }
 
         .sidebar-tabs-menu-1 .tab .title:hover {
-            background-color: #3399FF; /* Change the hover color for the second tab */
-            color: #fff; /* Change the text color on hover for the second tab */
+            background-color: #3399FF;
+            color: #fff;
         }
 
         .sidebar-tabs-menu-1 input[type="radio"]:checked ~ .title.not-first {
-            background-color: #3399FF; /* Change the active color for the second tab */
-            color: #fff; /* Change the text color when the second tab is active */
+            background-color: #3399FF;
+            color: #fff;
         }
 
         /* Customize the content in the second tab */
-        .sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-recent) {
-            /* Add styles to differentiate the second tab content */
-        }
-
+        .sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-recent),
         .sidebar-tabs-menu-1 .reveal:not(.sidebar-tabs-menu-1-popular) {
             /* Add styles to differentiate the second tab content */
         }
@@ -138,10 +135,10 @@
             font-size: 20px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 12px; /* Rounded corners */
-            outline: none; /* Remove default outline */
-            font-family: 'Your-Apple-Font', sans-serif; /* Replace 'Your-Apple-Font' with the actual Apple font */
-            margin-bottom: 10px; /* Adjusted margin-bottom */
+            border-radius: 12px;
+            outline: none;
+            font-family: 'Your-Apple-Font', sans-serif;
+            margin-bottom: 10px;
         }
     </style>
 
@@ -161,7 +158,7 @@
                 3. The timer will start counting down from 30 seconds; if you are still hunching down when the timer reaches 0, you will be notified
             </div>
             
-            <video id="webgazer-video" playsinline autoplay></video>
+            <video id="webgazer-video" playsinline autoplay onclick="toggleWebgazerVideo()"></video>
         </div>
 
         <!-- Container for the rotation value and label -->
@@ -208,7 +205,7 @@
         <script>
             // Initialize the Rotation class
             const rotation = new Rotation();
-            var countdown = 30; // Initial countdown value
+            var countdown = 20; // Initial countdown value
 
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
@@ -241,31 +238,14 @@
                     document.getElementById("statistics").style.display = "block";
                 }
             }, 10); // Update every 0.01 second, adjust as needed
+
+            function toggleWebgazerVideo() {
+                const webgazerVideo = document.getElementById("webgazer-video");
+                webgazerVideo.style.display = (webgazerVideo.style.display === "none" || webgazerVideo.style.display === "") ? "block" : "none";
+            }
         </script>
         <script>
-            function startCountdown() {
-                // Get the current rotation value directly from the rotation object
-                const rotationValue = rotation.getRotation();
-
-                // Convert face-in-frame value to an integer
-                const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
-
-                if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
-                    countdown -= 1;
-                    document.getElementById("counter").value = countdown;
-                } else if (countdown === 0) {
-                    // Notify the user when the countdown reaches 0
-                    alert("Hey! You've been sitting slouched!");
-                    resetCountdown();
-                }
-            }
-
-            function resetCountdown() {
-                countdown = 30;
-                document.getElementById("counter").value = countdown;
-            }
-
-            setInterval(startCountdown, 1000);
+            // ... (your existing scripts) ...
         </script>
     </main>
 </body>
