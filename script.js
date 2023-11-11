@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const rotation = new Rotation();
     let counter = 30; // Initial counter value
     let countdownStarted = false; // Flag to track whether countdown has started
+    let countdownInterval = null; // Initialize the variable
 
     webgazer.setRegression('ridge')
         .setTracker('clmtrackr')
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to start the counter countdown
     function startCounter() {
-        const countdownInterval = setInterval(() => {
+        countdownInterval = setInterval(() => {
             if (counter > 0) {
                 counter--;
                 document.getElementById("counter").value = counter;
