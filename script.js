@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Check if the phone angle is below 35 degrees and countdown has not started
             if (phoneAngle < 35 && !countdownStarted) {
-                startCounter();
                 countdownStarted = true; // Set the flag to true
+                startCounter();
             } else if (phoneAngle >= 35) {
-                resetCounter();
                 countdownStarted = false; // Reset the flag when posture is fixed
+                resetCounter();
             }
         })
         .begin();
@@ -47,19 +47,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 10); // Update every 0.01 second, adjust as needed
 
-    // Function to check if the angle of the phone is below 35 degrees and start the counter
+    // Function to start the counter countdown
     function startCounter() {
-        if (counter > 0) {
-            counter--;
-            document.getElementById("counter").value = counter;
-        } else {
-            // Counter reached 0, take appropriate action
-            console.log("Counter reached 0. Implement your action here.");
-        }
+        const countdownInterval = setInterval(() => {
+            if (counter > 0) {
+                counter--;
+                document.getElementById("counter").value = counter;
+            } else {
+                // Counter reached 0, take appropriate action
+                console.log("Counter reached 0. Implement your action here.");
+                clearInterval(countdownInterval); // Stop the countdown
+            }
+        }, 1000); // Update every 1 second
     }
 
     // Function to reset the counter to its initial value, counter gets reset to 30 if posture is fixed
     function resetCounter() {
+        clearInterval(countdownInterval); // Stop the countdown if running
         counter = 30;
         document.getElementById("counter").value = counter;
     }
