@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const rotation = new Rotation();
-    let counter = 30; // Initial counter value
 
     webgazer.setRegression('ridge')
         .setTracker('clmtrackr')
@@ -24,13 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const phoneAngle = rotation.getRotation(); // Get the angle of the phone
             document.getElementById("rotation").value = phoneAngle.toFixed(2);
-
-            // Check if the phone angle is below 35 degrees
-            if (phoneAngle < 35) {
-                startCounter();
-            } else {
-                resetCounter();
-            }
         })
         .begin();
     webgazer.showPredictionPoints(true);
@@ -43,21 +35,4 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("exercise").style.display = "none";
         }
     }, 10); // Update every 0.01 second, adjust as needed
-
-    // Function to check if the angle of the phone is below 35 degrees and start the counter
-    function startCounter() {
-        if (counter > 0) {
-            counter--;
-            document.getElementById("counter").value = counter;
-        } else {
-            // Counter reached 0, take appropriate action
-            console.log("Counter reached 0. Implement your action here.");
-        }
-    }
-
-    // Function to reset the counter to its initial value
-    function resetCounter() {
-        counter = 30;
-        document.getElementById("counter").value = counter;
-    }
 });
