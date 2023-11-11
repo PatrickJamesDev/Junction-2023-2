@@ -33,4 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("face-angle").value = faceAngle.toFixed(2);
         }
     }
+    // New function to track face angle
+    function countdownTimer() 
+
+    // function notification shows notification once the timer is up
+    function notification
 });
