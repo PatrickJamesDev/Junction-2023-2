@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing5 / °</div>
+            <div id="rotation-label">Angle of viewing6 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -184,7 +184,7 @@
                 } else {
                     resetCountdown();
                 }
-            }, 1000); // Update every second, adjust as needed
+            }, 10); // Update every 10 ms, constant not to be changed. 
         </script>
     </main>
 </body>
