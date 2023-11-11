@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing7 / °</div>
+            <div id="rotation-label">Angle of viewing8 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -129,6 +129,7 @@
         <script>
             // Initialize the Rotation class
             const rotation = new Rotation();
+            var countdown = 30; // Initial countdown value
         
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
@@ -161,7 +162,7 @@
             }, 10); // Update every 0.01 second, adjust as needed
         </script>
         <script>
-            let countdown = 30; // Initial countdown value
+            
 
             function startCountdown() {
                 if (countdown > 0 && rotationValue.value< 45 || rotationValue< 45  && faceInFrameValue.value == 1) {
