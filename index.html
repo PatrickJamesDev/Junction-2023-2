@@ -84,6 +84,16 @@
             height: auto;
             border-radius: 3px;
         }
+
+        #webgazerFaceFeedbackBox {
+            display: block;
+            border: solid green;
+            position: absolute;
+            top: 40.8px;
+            left: 80.8px;
+            width: 158.4px;
+            height: 158.4px;
+        }
     </style>
 </head>
 <body>
@@ -100,7 +110,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing2 / °</div>
+            <div id="rotation-label">Angle of viewing3 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -129,9 +139,13 @@
                         return;
                     }
                     const faceInFrameValue = document.getElementById("face-in-frame");
+                    const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
                     
-                    // Update the face-in-frame value based on the presence of a face
-                    faceInFrameValue.value = data.face ? 1 : -1;
+                    // Get the computed style to check the border color
+                    const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
+                    
+                    // Update the face-in-frame value based on the border color
+                    faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
