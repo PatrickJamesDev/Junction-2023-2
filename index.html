@@ -16,16 +16,16 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            color: #ccbeaf;
+            color: #000000;
             background-color: #ccbeaf;
         }
-
+    
         h1 {
             color: #ccbeaf;
             text-align: center;
             margin-bottom: 30px;
         }
-
+    
         #rotation-container,
         #face-in-frame-container,
         #counter-container {
@@ -35,14 +35,14 @@
             align-items: center;
             position: relative;
         }
-
+    
         #rotation,
         #face-in-frame,
         #counter {
             width: 300px;
             font-size: 30px;
         }
-
+    
         #rotation-label,
         #face-in-frame-label,
         #counter-label {
@@ -50,11 +50,11 @@
             margin-bottom: 10px;
             color: black;
         }
-
+    
         #exercise {
             display: none;
         }
-
+    
         #webgazer-video-container {
             width: 100%;
             max-width: 500px;
@@ -62,26 +62,21 @@
             border-radius: 5px;
             margin-bottom: 20px;
             position: relative;
-            display: flex; /* Add this line */
-            justify-content: center; /* Add this line */
+            display: flex;
+            justify-content: center;
         }
-
+    
         #webgazer-video {
             width: 100%;
             height: auto;
             border-radius: 3px;
         }
-
+    
         #webgazerFaceFeedbackBox {
-            display: block;
-            border: solid green;
-            position: absolute;
-            top: 40.8px;
-            left: 80.8px;
-            width: 158.4px;
-            height: 158.4px;
+            display: none;
         }
     </style>
+    
 </head>
 <body>
     <main role="main" class="container">
@@ -97,7 +92,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing9 / °</div>
+            <div id="rotation-label">Angle of viewing10 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
