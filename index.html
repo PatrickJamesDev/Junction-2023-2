@@ -7,11 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Include Chart.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        /* Your existing styles here */
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -30,7 +26,9 @@
             margin-bottom: 30px;
         }
 
-        #rotation-container {
+        #rotation-container,
+        #face-in-frame-container,
+        #counter-container {
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
@@ -38,34 +36,19 @@
             position: relative;
         }
 
-        #rotation {
+        #rotation,
+        #face-in-frame,
+        #counter {
             width: 300px;
             font-size: 30px;
         }
 
-        #rotation-label {
+        #rotation-label,
+        #face-in-frame-label,
+        #counter-label {
             font-size: 24px;
             margin-bottom: 10px;
             color: black;
-        }
-
-        #face-in-frame-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        #face-in-frame-label {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: black;
-        }
-
-        #face-in-frame {
-            width: 300px;
-            font-size: 30px;
         }
 
         #exercise {
@@ -98,23 +81,6 @@
             width: 158.4px;
             height: 158.4px;
         }
-
-        #tabs {
-            display: flex;
-            margin-bottom: 20px;
-        }
-
-        #tabs button {
-            margin-right: 10px;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        canvas {
-            max-width: 800px;
-        }
     </style>
 </head>
 <body>
@@ -131,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing3 / °</div>
+            <div id="rotation-label">Angle of viewing5 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -144,46 +110,82 @@
             <input type="text" id="face-in-frame" value="0" />
         </div>
 
+        <!-- Container for the countdown timer value and label -->
+        <div id="counter-container">
+            <!-- Label for the countdown timer value -->
+            <div id="counter-label">Countdown Timer</div>
+            <!-- Text box that shows the countdown timer value -->
+            <input type="text" id="counter" value="30" />
+        </div>
+
         <!-- Element to show exercise -->
         <div id="exercise"></div>
 
-        <!-- Tab Navigation -->
-        <div id="tabs">
-            <button onclick="openTab('home')">Home</button>
-            <button onclick="openTab('longTermData')">Long-Term Data</button>
-        </div>
+        <!-- JavaScript includes -->
+        <script src="rotation.js" type="text/javascript"></script>
+        <script src="webgazer.js" type="text/javascript"></script>
 
-        <!-- Tab Content -->
-        <div id="home" class="tab-content">
-            <!-- Content of the home tab -->
-        </div>
-
-        <div id="longTermData" class="tab-content" style="display: none;">
-            <!-- Content of the long-term data tab -->
-            <iframe src="long_term_data.html" width="100%" height="500px" frameborder="0"></iframe>
-        </div>
-
-    </main>
-
-    <!-- Include your existing scripts here -->
-
-    <script>
-        function openTab(tabName) {
-            // Hide all tabs
-            var tabs = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].style.display = "none";
+        <!-- Webgazer initialization script -->
+        <script>
+            let countdown = 30; // Initial countdown value
+        
+            webgazer.setRegression('ridge')
+                .setTracker('clmtrackr')
+                .setGazeListener(function(data, clock) {
+                    if (data == null) {
+                        return;
+                    }
+                    const faceInFrameValue = document.getElementById("face-in-frame");
+                    const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
+                    
+                    // Get the computed style to check the border color
+                    const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
+                    
+                    // Update the face-in-frame value based on the border color
+                    faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
+                })
+                .begin();
+            webgazer.showPredictionPoints(true);
+        
+            function startCountdown() {
+                if (countdown > 0) {
+                    countdown -= 1;
+                    document.getElementById("counter").value = countdown;
+                } else {
+                    // Notify the user when the countdown reaches 0
+                    alert("Hey! You've been sitting slouched!");
+                    resetCountdown();
+                }
             }
-
-            // Show the selected tab
-            document.getElementById(tabName).style.display = "block";
-        }
-    </script>
-
-    <script src="rotation.js" type="text/javascript"></script>
-    <script src="webgazer.js" type="text/javascript"></script>
-    
-    <!-- Your other scripts here -->
-
+        
+            function resetCountdown() {
+                countdown = 30;
+                document.getElementById("counter").value = countdown;
+            }
+        
+            const rotation = new Rotation();
+        
+            setInterval(() => {
+                const rotationValue = document.getElementById("rotation");
+                rotationValue.value = rotation.getRotation();
+        
+                if (rotation.getRotation() > 10) {
+                    document.getElementById("exercise").style.display = "block";
+                } else {
+                    document.getElementById("exercise").style.display = "none";
+                }
+        
+                // Check conditions for starting/resetting the countdown
+                const faceInFrameValue = document.getElementById("face-in-frame").value;
+                const isAngleInRange = rotation.getRotation() >= 25 && rotation.getRotation() <= 40;
+        
+                if (faceInFrameValue === "1" && isAngleInRange) {
+                    startCountdown();
+                } else {
+                    resetCountdown();
+                }
+            }, 1000); // Update every second, adjust as needed
+        </script>
+    </main>
 </body>
 </html>
