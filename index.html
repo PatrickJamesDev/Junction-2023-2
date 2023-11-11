@@ -97,7 +97,7 @@
         <!-- Container for the rotation value and label -->
         <div id="rotation-container">
             <!-- Label for the rotation value -->
-            <div id="rotation-label">Angle of viewing / °</div>
+            <div id="rotation-label">Angle of viewing2 / °</div>
             <!-- Text box that shows the rotation value -->
             <input type="text" id="rotation" value="0" />
         </div>
@@ -127,49 +127,38 @@
 
         <!-- Webgazer initialization script -->
         <script>
-            // Placeholder for rotation object, make sure it's defined in rotation.js
-            const rotation = {
-                getRotation: () => {
-                    // Your implementation to get rotation
-                    // This function should return the current rotation angle
-                    return 0;
-                },
-            };
-
+            // Initialize the Rotation class
+            const rotation = new Rotation();
+        
             webgazer.setRegression('ridge')
                 .setTracker('clmtrackr')
                 .setGazeListener(function (data, clock) {
+                    if (data == null) {
+                        return;
+                    }
                     const faceInFrameValue = document.getElementById("face-in-frame");
                     const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
-
+        
                     // Get the computed style to check the border color
                     const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
-
+        
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
-
-                    // Check conditions for starting/resetting the countdown
-                    const isAngleInRange = rotation.getRotation() >= 25 && rotation.getRotation() <= 40;
-                    if (faceInFrameValue.value === "1" && isAngleInRange) {
-                        startCountdown();
-                    } else {
-                        resetCountdown();
-                    }
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
-
+        
             // Update rotation and face-in-frame every 10 milliseconds
             setInterval(() => {
                 const rotationValue = document.getElementById("rotation");
                 rotationValue.value = rotation.getRotation();
-
+        
                 if (rotation.getRotation() > 10) {
                     document.getElementById("exercise").style.display = "block";
                 } else {
                     document.getElementById("exercise").style.display = "none";
                 }
-            }, 10);
+            }, 10); // Update every 0.01 second, adjust as needed
         </script>
         <script>
             let countdown = 30; // Initial countdown value
