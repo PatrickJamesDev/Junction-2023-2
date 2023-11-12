@@ -82,7 +82,7 @@
             border: 2px solid #ccc;
             border-radius: 15px;
             margin-bottom: 20px;
-            margin-top: 400px; /* Adjusted margin-top value */
+            margin-top: 200px;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -140,8 +140,21 @@
             font-family: 'Your-Apple-Font', sans-serif;
             margin-bottom: 10px;
         }
-    </style>
 
+        button {
+            background-color: #3399FF;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2666B2;
+        }
+    </style>
 </head>
 <body>
     <main role="main" class="container">
@@ -159,6 +172,7 @@
             </div>
             
             <video id="webgazer-video" playsinline autoplay></video>
+            <button onclick="startDemo()">Start Demo</button> <!-- Modified button with onclick event -->
         </div>
 
         <!-- Container for the rotation value and label -->
@@ -207,39 +221,51 @@
             const rotation = new Rotation();
             var countdown = 20; // Initial countdown value
 
-            webgazer.setRegression('ridge')
-                .setTracker('clmtrackr')
-                .setGazeListener(function (data, clock) {
-                    if (data == null) {
-                        return;
+            function startDemo() {
+                // Request camera permission
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then((stream) => {
+                        document.getElementById('webgazer-video').srcObject = stream;
+                    })
+                    .catch((error) => {
+                        console.error('Error accessing camera:', error);
+                        alert('Error accessing camera. Please check your camera permissions.');
+                    });
+                
+                // Start Webgazer
+                webgazer.setRegression('ridge')
+                    .setTracker('clmtrackr')
+                    .setGazeListener(function (data, clock) {
+                        if (data == null) {
+                            return;
+                        }
+                        const faceInFrameValue = document.getElementById("face-in-frame");
+                        const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
+
+                        // Get the computed style to check the border color
+                        const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
+
+                        // Update the face-in-frame value based on the border color
+                        faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
+                    })
+                    .begin();
+                webgazer.showPredictionPoints(true);
+
+                // Update rotation and face-in-frame every 10 milliseconds
+                setInterval(() => {
+                    const rotationValue = document.getElementById("rotation");
+                    rotationValue.value = rotation.getRotation();
+
+                    if (rotation.getRotation() > 10) {
+                        document.getElementById("exercise").style.display = "block";
+                        document.getElementById("statistics").style.display = "none";
+                    } else {
+                        document.getElementById("exercise").style.display = "none";
+                        document.getElementById("statistics").style.display = "block";
                     }
-                    const faceInFrameValue = document.getElementById("face-in-frame");
-                    const webgazerFaceFeedbackBox = document.getElementById("webgazerFaceFeedbackBox");
-
-                    // Get the computed style to check the border color
-                    const borderColor = window.getComputedStyle(webgazerFaceFeedbackBox).borderColor;
-
-                    // Update the face-in-frame value based on the border color
-                    faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
-                })
-                .begin();
-            webgazer.showPredictionPoints(true);
-
-            // Update rotation and face-in-frame every 10 milliseconds
-            setInterval(() => {
-                const rotationValue = document.getElementById("rotation");
-                rotationValue.value = rotation.getRotation();
-
-                if (rotation.getRotation() > 10) {
-                    document.getElementById("exercise").style.display = "block";
-                    document.getElementById("statistics").style.display = "none";
-                } else {
-                    document.getElementById("exercise").style.display = "none";
-                    document.getElementById("statistics").style.display = "block";
-                }
-            }, 10); // Update every 0.01 second, adjust as needed
-        </script>
-        <script>
+                }, 10); // Update every 0.01 second, adjust as needed
+            }
+            
             function startCountdown() {
                 // Get the current rotation value directly from the rotation object
                 const rotationValue = rotation.getRotation();
