@@ -93,7 +93,7 @@
 
         #webgazer-video {
             width: 100%;
-            height: 50px;
+            height: auto;
         }
 
         #webgazerFaceFeedbackBox {
@@ -221,33 +221,28 @@
 
                     // Update the face-in-frame value based on the border color
                     faceInFrameValue.value = borderColor === "rgb(0, 128, 0)" ? 1 : -1;
+
+                    // Get the current rotation value directly from the rotation object
+                    const rotationValue = rotation.getRotation();
+                    document.getElementById("rotation").value = rotationValue;
+
+                    if (rotationValue > 10) {
+                        document.getElementById("exercise").style.display = "block";
+                        document.getElementById("statistics").style.display = "none";
+                    } else {
+                        document.getElementById("exercise").style.display = "none";
+                        document.getElementById("statistics").style.display = "block";
+                    }
                 })
                 .begin();
             webgazer.showPredictionPoints(true);
 
-            // Update rotation and face-in-frame every 10 milliseconds
-            setInterval(() => {
-                const rotationValue = document.getElementById("rotation");
-                rotationValue.value = rotation.getRotation();
-
-                if (rotation.getRotation() > 10) {
-                    document.getElementById("exercise").style.display = "block";
-                    document.getElementById("statistics").style.display = "none";
-                } else {
-                    document.getElementById("exercise").style.display = "none";
-                    document.getElementById("statistics").style.display = "block";
-                }
-            }, 10); // Update every 0.01 second, adjust as needed
-        </script>
-        <script>
+            // Countdown timer
             function startCountdown() {
-                // Get the current rotation value directly from the rotation object
-                const rotationValue = rotation.getRotation();
-
                 // Convert face-in-frame value to an integer
                 const faceInFrameValue = parseInt(document.getElementById("face-in-frame").value);
 
-                if (countdown > 0 && rotationValue < 45 && faceInFrameValue === 1) {
+                if (countdown > 0 && faceInFrameValue === 1) {
                     countdown -= 1;
                     document.getElementById("counter").value = countdown;
                 } else if (countdown === 0) {
